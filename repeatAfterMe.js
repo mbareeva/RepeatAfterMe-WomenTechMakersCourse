@@ -51,25 +51,11 @@ var Post = class {
       }
   }
 
-var leo = new User ("Leo", "leonardo@gmail.com")
-var christine = new User ("Christine", "christ92@hotmail.com")
-var phil = new User ("Philipp", "phil_white@mail.ru")
-var post1 = new Post("2 days in Rome", "Brief overlook of worthy places in Rome")
-var post2 = new Post("Surfing camp in Bali", "How I learned serfing and travelled around suburbs")
-var post3 = new Post("Me as Au-Pair in France", "My year of living with host family")
-leo.makePost(post1)
-christine.makePost(post2)
-phil.makePost(post3)
-post1.addMapInPost()
-post2.addMapInPost()
-post3.addMapInPost()
 
-// test
-leo.sayName()
-christine.sayEmail()
 
 var Map = class {
-      constructor(){
+      constructor(caption){
+          this.caption = caption
         this.locations = []
       }
 
@@ -95,6 +81,17 @@ var Location = class {
         return this.rating
       }
   }
+var leo = new User ("Leo", "leonardo@gmail.com")
+var christine = new User ("Christine", "christ92@hotmail.com")
+var phil = new User ("Philipp", "phil_white@mail.ru")
+
+// test
+//leo.sayName()
+//console.log(christine.sayEmail())
+
+var post1 = new Post("2 days in Rome", "Brief overlook of worthy places in Rome")
+var post2 = new Post("Surfing camp in Bali", "How I learned serfing and travelled around suburbs")
+var post3 = new Post("Me as Au-Pair in France", "My year of living with host family")
 
 var accomodation = new Location("Alessandro Palace Hostel & Bar", "via Vicenza, 42", 4)
 var cafe = new Location("Pizzeria Del Secolo Roma", "via Palestro, 62",  3)
@@ -102,10 +99,12 @@ var accomodation2 = new Location ("Private House", "Rue Saint-Maurice", 5)
 var cafe2 = new Location ("L'Atelier Gourmand", "2 Rue Saint-MAurice", 3)
 var accomodation3 = new Location("Pro Surf School Bali", "Pantai Kuta 33, Legian, Kuta", 5)
 var cafe3 = new Location ("Warung Damar", "Jalan Kartika Plaza", 4)
+//test
+//console.log(accomodation)
 
-var map = new Map()
-var map2 = new Map()
-var map3 = new Map()
+var map = new Map("my route in Rome")
+var map2 = new Map("my trip to France")
+var map3 = new Map("Surroundings")
 
 map.addLocOnMap(accomodation)
 map.addLocOnMap(cafe)
@@ -115,7 +114,16 @@ map3.addLocOnMap(accomodation3)
 map3.addLocOnMap(cafe3)
 
 //test
-console.log(accomodation)
-console.log(map)
+//console.log(map)
 
-console.log(phil)
+post1.addMapInPost(map)
+post2.addMapInPost(map2)
+post3.addMapInPost(map3)
+
+console.log(post1)
+
+leo.makePost(post1)
+christine.makePost(post2)
+phil.makePost(post3)
+
+//console.log(phil)
