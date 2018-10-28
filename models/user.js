@@ -15,9 +15,12 @@ constructor(name, email){
     makePost(post){
         this.posts.push(post)
     }
-
-    report(){
-      console.log(Chalk.white.bgBlue.bold(this.name), "posted: ", this.posts)
-
+    
+  
+    static create({name, email, posts}) {
+      const user = new User(name, email, posts)
+      user.posts = posts.map(Post.create)
+      return user
   }
+
 }

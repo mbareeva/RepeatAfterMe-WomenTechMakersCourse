@@ -15,5 +15,11 @@ module.exports = class Post {
       this.maps.push(map)
     }
 
+    static create({topic, description, maps}) {
+      const post = new Post(topic, description, maps)
+      post.maps = maps.map(Map.create)
+      return post
+  }
+
     
 }

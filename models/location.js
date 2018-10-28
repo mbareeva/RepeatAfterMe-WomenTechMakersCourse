@@ -14,4 +14,8 @@ module.exports = class Location  {
       sayRating(){
         return this.rating
       }
-  }
+
+      static create({placeName, placeAddress, rating}) {
+        return new Location(placeName, placeAddress, rating)
+    }
+ }
