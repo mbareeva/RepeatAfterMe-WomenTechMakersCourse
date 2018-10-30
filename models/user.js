@@ -1,4 +1,5 @@
 const Chalk = require("chalk")
+const Post = require("./post")
 module.exports = class User  {
 constructor(name, email){
   this.name = name;

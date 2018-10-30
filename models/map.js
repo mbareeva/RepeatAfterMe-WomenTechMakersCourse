@@ -1,3 +1,4 @@
+const Location = require("./location")
 module.exports = class Map {
     constructor(caption){
         this.caption = caption

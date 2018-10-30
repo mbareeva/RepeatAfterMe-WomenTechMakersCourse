@@ -85,7 +85,7 @@ phil.makePost(post3)
 
 await UserService.add(leo)
 await UserService.add(christine)
-await UserServide.add(phil)
+await UserService.add(phil)
 const people = await UserService.findAll()
 
 console.log(people[0].name)

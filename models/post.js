@@ -1,3 +1,4 @@
+const Map = require("./map")
 module.exports = class Post {
     constructor(topic, description){
       this.topic = topic
