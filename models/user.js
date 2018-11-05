@@ -1,7 +1,8 @@
 const Chalk = require("chalk")
 const Post = require("./post")
 module.exports = class User  {
-constructor(name, email){
+constructor(id, name, email){
+  this.id = id;
   this.name = name;
   this.email = email;
   this.posts = [];
@@ -16,10 +17,14 @@ constructor(name, email){
     makePost(post){
         this.posts.push(post)
     }
+
+    setId(){
+      return this.id;
+    }
     
   
-    static create({name, email, posts}) {
-      const user = new User(name, email, posts)
+    static create({id, name, email, posts}) {
+      const user = new User(id, name, email, posts)
       user.posts = posts.map(Post.create)
       return user
   }

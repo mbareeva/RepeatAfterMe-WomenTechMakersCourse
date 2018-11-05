@@ -13,27 +13,36 @@ Map has Locations on it
 */
 const express = require('express')
 const UserService = require('./services/user-service')
-
+const bodyParser = require('body-parser')
 
 const app = express()
 app.set('view engine', 'pug')
+app.use(bodyParser.json())
 
-app.get('/', async (req, res) => {//response
-    res.render('index', {contributors})
+app.get('/', async (req, res) => {
+    //response
+    res.render('index')
 })
 
-app.get('/person/all', async (req, res) => {
+app.get('/contributors/all', async (req, res) => {
     const contributors = await UserService.findAll()
-    res.render('index', {contributors})
+    res.render('contributors', { contributors })
 })
 
-app.get('/person/:id', async (req, res) => {
-    res.send(await UserService.find(req.params.id))
+app.get('/contributors/:id', async (req, res) => {
+    const contributor = await UserService.find(req.params.id)
+    res.send(contributor)
+})
+//post from browser to server
+app.post('/contributors', async (req, res) => {
+   const user = await UserService.add(req.body)
+   res.send(user)
 })
 
-//app.post('/person', async (req, res) => {
-//        console.log(req.body)
-//})
+app.delete('/contributors/:id', async (req, res) => {
+    const user = await UserService.del(req.params.id)
+    res.send(user)
+  })
 
 app.listen(3000, () => {//request
     console.log('Server is listening')
