@@ -31,7 +31,7 @@ app.get('/contributors/all', async (req, res) => {
 
 app.get('/contributors/:id', async (req, res) => {
     const contributor = await UserService.find(req.params.id)
-    res.send(contributor)
+    res.send(contributor.name)
 })
 //post from browser to server
 app.post('/contributors', async (req, res) => {
