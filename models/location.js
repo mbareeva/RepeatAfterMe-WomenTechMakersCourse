@@ -1,21 +1,9 @@
-module.exports = class Location  {
-    constructor(placeName, placeAddress, rating){
-        this.placeName = placeName
-        this.placeAddress = placeAddress
-        this.rating = rating
-      }
+const mongoose = require('mongoose')
 
-      sayPlaceName(){
-        return this.placeName
-      }
-      sayPlaceAddress(){
-        return this.placeAddress
-      }
-      sayRating(){
-        return this.rating
-      }
+const LocationSchema = new mongoose.Schema ({
+        placeName: String,
+        placeAddress: String,
+        rating: Number
+})
 
-      static create({placeName, placeAddress, rating}) {
-        return new Location(placeName, placeAddress, rating)
-    }
- }
+module.exports = mongoose.model('Location', LocationSchema);

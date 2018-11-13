@@ -1,64 +1,46 @@
-const fs = require("fs")
+//const fs = require("fs")
 
 const UserModel = require('../models/user')
+const PostModel = require('../models/post')
 
-const dbPath = `${__dirname}/../data.json`
+//const dbPath = `${__dirname}/../data.json`
+
+async function addPost(userId, postId) {
+    const user = await UserModel.findOne({ _id: userId })
+    const post = await PostModel.findOne({ _id: postId })
+
+    user.posts.push(post)
+
+    await user.save()
+
+    return user
+}
 
 async function findAll() {
-    return new Promise((resolve, reject) => {
-        fs.readFile(dbPath, 'utf8', (err, file) => {
-            if (err) return reject(err)
-
-            const people = JSON.parse(file).map(UserModel.create)
-
-            resolve(people)
-        })
-    })
+  return UserModel.find().populate('posts')
 }
-
+//add a user
 async function add(person) {
-    const allPeople = await findAll()
-    const lastPerson = allPeople[allPeople.length - 1]
-    const lastPersonsId = lastPerson && lastPerson.id || 0
-    person.id = lastPersonsId + 1
-
-    person = UserModel.create(person)
-    allPeople.push(person)
-
-    await saveAll(allPeople)
-
-    return person
+    return UserModel.create(person)
 }
 
-async function del(personId) {
-    const allPeople = await findAll()
-    const personIndex = allPeople.findIndex(p => p.id == personId)
-    if (personIndex < 0) return
-
-    allPeople.splice(personIndex, 1)
-
-    saveAll(allPeople)
+async function del(_Id) {
+    return UserModel.remove({_id})
 }
 
-async function find(personId) {
-    const allPeople = await findAll()
-
-    return allPeople.find(p => p.id == personId)
+async function find(_Id) {
+    return UserModel.findOne({_id}).populate('posts')
 }
 
-async function saveAll(people) {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(dbPath, JSON.stringify(people), (err, file) => {
-            if (err) return reject(err)
-
-            resolve()
-        })
-    })
+async function findByName(personName){
+    return UserModel.find({name: personName})
 }
 
 module.exports = {
+    addPost,
     findAll,
     find,
+    findByName,
     add,
     del
 }

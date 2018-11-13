@@ -1,26 +1,13 @@
-const Map = require("./map")
-module.exports = class Post {
-    constructor(topic, description){
-      this.topic = topic
-      this.description = description
-      this.maps = []
-    }
 
-    writeTopic(){
-      console.log("The topic is " + this.topic)
-    }
-    describeTrip(){
-      console.log(this.description)
-    }
-    addMapInPost(map){
-      this.maps.push(map)
-    }
+const mongoose = require('mongoose')
 
-    static create({topic, description, maps}) {
-      const post = new Post(topic, description, maps)
-      post.maps = maps.map(Map.create)
-      return post
-  }
+const PostSchema = new mongoose.Schema ({
+      topic: String,
+      description: String,
+      maps: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Map'
+      }]
+    })
 
-    
-}
+    module.exports = mongoose.model('Post', PostSchema);

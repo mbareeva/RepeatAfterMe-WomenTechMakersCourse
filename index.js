@@ -12,17 +12,25 @@ Post should contain Map
 Map has Locations on it
 */
 const express = require('express')
-const UserService = require('./services/user-service')
 const bodyParser = require('body-parser')
+
+const UserService = require('./services/user-service')
+const PostService = require('./services/user-service')
+const MapService = require('./services/user-service')
+const LocationService = require('./services/user-service')
+
+require('./mongo-connection')
 
 const app = express()
 app.set('view engine', 'pug')
 app.use(bodyParser.json())
 
-app.get('/', async (req, res) => {
     //response
+app.get('/', async (req, res) => {
     res.render('index')
 })
+
+//User Endpoints
 
 app.get('/contributors/all', async (req, res) => {
     const contributors = await UserService.findAll()
@@ -33,11 +41,21 @@ app.get('/contributors/:id', async (req, res) => {
     const contributor = await UserService.find(req.params.id)
     res.send(contributor)
 })
+
+app.get('/contributors/name/:name', async (req, res) => {
+    const contributor = await UserService.findByName(req.param.name)
+    res.send(contributor)
+})
+
 //post from browser to server
 app.post('/contributors', async (req, res) => {
    const user = await UserService.add(req.body)
    res.send(user)
 })
+app.post('/contributors/:id/addPost', async (req, res) => {
+    const contributors = await UserService.addPost(req.params.userId, req.body.postId)
+    res.send(contributors)
+  })
 
 app.delete('/contributors/:id', async (req, res) => {
     const user = await UserService.del(req.params.id)
@@ -47,3 +65,76 @@ app.delete('/contributors/:id', async (req, res) => {
 app.listen(3000, () => {//request
     console.log('Server is listening')
 })
+
+// Post Endpoints
+
+app.get('/post/all', async (req, res) => {
+    const posts = await PostService.findAll()
+    res.render('posts', { data: posts })
+  })
+  
+  app.get('/post/:id', async (req, res) => {
+    const post = await PostService.find(req.params.id)
+    res.render('data', { data: post })
+  })
+  
+  app.post('/post', async (req, res) => {
+    const post = await PostService.add(req.body)
+    res.send(post)
+  })
+  
+  app.post('/post/:id/addMap', async (req, res) => {
+    const post = await PostService.addMap(req.params.id, req.body.mapId)
+    res.send(post)
+  })
+  
+  app.listen(3000, () => {
+    console.log('Server listening')
+  })
+
+  //Map Endpoints
+
+  app.get('/map/all', async (req, res) => {
+    const maps = await MapService.findAll()
+    res.render('map', { data: maps })
+  })
+  
+  app.get('/map/:id', async (req, res) => {
+    const map = await MapService.find(req.params.id)
+    res.render('data', { data: map })
+  })
+  
+  app.post('/map', async (req, res) => {
+    const map = await MapService.add(req.body)
+    res.send(map)
+  })
+  
+  app.post('/map/:id/addLocation', async (req, res) => {
+    const map = await MapService.addLocation(req.params.id, req.body.locationId)
+    res.send(map)
+  })
+  
+  app.listen(3000, () => {
+    console.log('Server listening')
+  })
+
+  //Location Endpoints
+
+  app.get('/location/all', async (req, res) => {
+    const locations = await LocationService.findAll()
+    res.render('data', { data: locations })
+  })
+  
+  app.get('/location/:id', async (req, res) => {
+    const location = await LocationService.find(req.params.id)
+    res.render('data', { data: location })
+  })
+  
+  app.post('/location', async (req, res) => {
+    const location = await LocationService.add(req.body)
+    res.send(location)
+  })
+  
+  app.listen(3000, () => {
+    console.log('Server listening')
+  })

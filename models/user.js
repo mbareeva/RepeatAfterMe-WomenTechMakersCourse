@@ -1,32 +1,14 @@
-const Chalk = require("chalk")
-const Post = require("./post")
-module.exports = class User  {
-constructor(id, name, email){
-  this.id = id;
-  this.name = name;
-  this.email = email;
-  this.posts = [];
-}
 
-    sayName(){
-      console.log("Hello, " + this.name + "!" + " Share with us your last trip!")
-  }
-    sayEmail(){
-      return this.email;
-    }
-    makePost(post){
-        this.posts.push(post)
-    }
+const mongoose = require('mongoose')
 
-    setId(){
-      return this.id;
-    }
-    
-  
-    static create({id, name, email, posts}) {
-      const user = new User(id, name, email, posts)
-      user.posts = posts.map(Post.create)
-      return user
-  }
+const UserSchema = new mongoose.Schema ({
+ id: String,
+ name: String,
+ email: String,
+ posts: [{
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  }]
+})
 
-}
+module.exports = mongoose.model('User', UserSchema);
