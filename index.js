@@ -62,9 +62,7 @@ app.delete('/contributors/:id', async (req, res) => {
     res.send(user)
   })
 
-app.listen(3000, () => {//request
-    console.log('Server is listening')
-})
+
 
 // Post Endpoints
 
@@ -114,9 +112,7 @@ app.get('/post/all', async (req, res) => {
     res.send(map)
   })
   
-  app.listen(3000, () => {
-    console.log('Server listening')
-  })
+  
 
   //Location Endpoints
 
@@ -135,6 +131,4 @@ app.get('/post/all', async (req, res) => {
     res.send(location)
   })
   
-  app.listen(3000, () => {
-    console.log('Server listening')
-  })
+  
