@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema ({
  email: String,
  posts: [{
     type: mongoose.Schema.ObjectId,
-    ref: 'User'
+    ref: 'Post'
   }]
 })
 

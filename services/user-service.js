@@ -24,11 +24,11 @@ async function add(person) {
     return UserModel.create(person)
 }
 
-async function del(_Id) {
+async function del(_id) {
     return UserModel.remove({_id})
 }
 
-async function find(_Id) {
+async function find(_id) {
     return UserModel.findOne({_id}).populate('posts')
 }
 
