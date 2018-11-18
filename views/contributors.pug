@@ -3,4 +3,4 @@ extends layout
 block content
     h1 The number of contributors is:#{contributors.length}
     each contributor in contributors
-        p #{contributor.name}
+        pre #{JSON.stringify(contributor, null, 4)}

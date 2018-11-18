@@ -1,0 +1,6 @@
+extends layout
+
+block content
+    h1 The number of the maps is #{maps.length}
+    each map in maps
+        pre #{JSON.stringify(map, null, 4)}

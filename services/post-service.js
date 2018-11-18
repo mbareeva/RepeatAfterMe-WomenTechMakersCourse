@@ -32,7 +32,6 @@ async function find(_id) {
 
 module.exports = {
     addMap,
-    addAttendee,
     findAll,
     find,
     add,

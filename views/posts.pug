@@ -1,0 +1,6 @@
+extends layout
+
+block content
+    h1 The number of the posts is #{posts.length}
+    each post in posts
+        pre #{JSON.stringify(post, null, 4)}

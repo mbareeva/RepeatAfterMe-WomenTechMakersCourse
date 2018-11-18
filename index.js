@@ -15,9 +15,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 const UserService = require('./services/user-service')
-const PostService = require('./services/user-service')
-const MapService = require('./services/user-service')
-const LocationService = require('./services/user-service')
+const PostService = require('./services/post-service')
+const MapService = require('./services/map-service')
+const LocationService = require('./services/location-service')
 
 require('./mongo-connection')
 
@@ -39,7 +39,7 @@ app.get('/contributors/all', async (req, res) => {
 
 app.get('/contributors/:id', async (req, res) => {
     const contributor = await UserService.find(req.params.id)
-    res.render('contributor', {data: contributor})
+    res.render('data', {data: contributor})
 })
 
 app.get('/contributors/name/:name', async (req, res) => {
@@ -51,7 +51,7 @@ app.post('/contributors', async (req, res) => {
    const user = await UserService.add(req.body)
    res.send(user)
 })
-app.post('/contributors/:id/addPost', async (req, res) => {
+app.post('/contributors/:id/add-post', async (req, res) => {
     const contributors = await UserService.addPost(req.params.userId, req.body.postId)
     res.send(contributors)
   })
@@ -65,22 +65,22 @@ app.delete('/contributors/:id', async (req, res) => {
 
 // Post Endpoints
 
-app.get('/post/all', async (req, res) => {
+app.get('/posts/all', async (req, res) => {
     const posts = await PostService.findAll()
-    res.render('posts', { data: posts })
+    res.render('posts', { posts })
   })
   
-  app.get('/post/:id', async (req, res) => {
+  app.get('/posts/:id', async (req, res) => {
     const post = await PostService.find(req.params.id)
     res.render('data', { data: post })
   })
   
-  app.post('/post', async (req, res) => {
+  app.post('/posts', async (req, res) => {
     const post = await PostService.add(req.body)
     res.send(post)
   })
   
-  app.post('/post/:id/addMap', async (req, res) => {
+  app.post('/posts/:id/addMap', async (req, res) => {
     const post = await PostService.addMap(req.params.id, req.body.mapId)
     res.send(post)
   })
@@ -93,7 +93,7 @@ app.get('/post/all', async (req, res) => {
 
   app.get('/map/all', async (req, res) => {
     const maps = await MapService.findAll()
-    res.render('map', { data: maps })
+    res.render('maps', { maps })
   })
   
   app.get('/map/:id', async (req, res) => {
