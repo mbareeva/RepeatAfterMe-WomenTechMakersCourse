@@ -51,8 +51,8 @@ app.post('/contributors', async (req, res) => {
    const user = await UserService.add(req.body)
    res.send(user)
 })
-app.post('/contributors/:id/add-post', async (req, res) => {
-    const contributors = await UserService.addPost(req.params.userId, req.body.postId)
+app.post('/contributors/:id/addPost', async (req, res) => {
+    const contributors = await UserService.addPost(req.params.id, req.body.postId)
     res.send(contributors)
   })
 
@@ -85,9 +85,12 @@ app.get('/posts/all', async (req, res) => {
     res.send(post)
   })
   
-  app.listen(3000, () => {
-    console.log('Server listening')
+  app.delete('/posts/:id', async (req, res) => {
+    const post = await PostService.del(req.params.id)
+    res.send(post)
   })
+
+ 
 
   //Map Endpoints
 
@@ -110,14 +113,19 @@ app.get('/posts/all', async (req, res) => {
     const map = await MapService.addLocation(req.params.id, req.body.locationId)
     res.send(map)
   })
-  
+
+  app.delete('/map/:id', async (req, res) => {
+    const map = await MapService.del(req.params.id)
+    res.send(map)
+  })
+
   
 
   //Location Endpoints
 
   app.get('/location/all', async (req, res) => {
     const locations = await LocationService.findAll()
-    res.render('data', { data: locations })
+    res.render('locations', { locations })
   })
   
   app.get('/location/:id', async (req, res) => {
@@ -129,5 +137,11 @@ app.get('/posts/all', async (req, res) => {
     const location = await LocationService.add(req.body)
     res.send(location)
   })
-  
-  
+  app.delete('/location/:id', async (req, res) => {
+    const location = await LocationService.del(req.params.id)
+    res.send(location)
+  })
+
+  app.listen(3000, () => {
+    console.log('Server listening')
+  })
