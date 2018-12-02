@@ -7,9 +7,16 @@ export default {
 
 <template lang="pug">
 div.wrapper
-   div {{data._id}}
+   p Name of contributor:
    div {{data.name}}
+   p Contact me: 
    div {{data.email}}
+   p - Post -
+   div(v-for="post in data.posts")  {{post.topic}} 
+   p Description
+   div(v-for="post in data.posts") {{post.description }}
+   p Map id: 
+   div(v-for="post in data.posts") {{post.maps}} 
 </template>
 
 <style>
@@ -21,5 +28,9 @@ div.wrapper
 }
 .location {
   color: #fff
+}
+
+p {
+   color: blue;
 }
 </style>

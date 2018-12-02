@@ -49,6 +49,13 @@ app.get('/contributors/:id', async (req, res) => {
     res.render('data', {data: contributor})
 })
 
+app.get('/contributors/:id/json', async (req, res) => {
+  const contributor = await UserService.find(req.params.id)
+  if(!user) res.status(404)
+  res.send(contributor)
+})
+
+
 app.get('/contributors/name/:name', async (req, res) => {
     const contributor = await UserService.findByName(req.param.name)
     res.send(contributor)
@@ -86,7 +93,12 @@ app.get('/posts/all-list', async (req, res) => {
     const post = await PostService.find(req.params.id)
     res.render('data', { data: post })
   })
-  
+
+  app.get('/posts/:id/json', async (req, res) => {
+    const post = await PostService.find(req.params.id)
+    if(!meetup) res.status(404)
+    res.send(post)
+  })
   app.post('/posts', async (req, res) => {
     const post = await PostService.add(req.body)
     res.send(post)
@@ -106,14 +118,24 @@ app.get('/posts/all-list', async (req, res) => {
 
   //Map Endpoints
 
-  app.get('/map/all', async (req, res) => {
+  app.get('/map/all-list', async (req, res) => {
     const maps = await MapService.findAll()
     res.render('maps', { maps })
   })
-  
+
+  app.get('/map/all', async (req, res) => {
+    const maps = await MapService.findAll()
+    res.send(maps)
+  })
   app.get('/map/:id', async (req, res) => {
     const map = await MapService.find(req.params.id)
     res.render('data', { data: map })
+  })
+
+  app.get('/map/:id/json', async (req, res) => {
+    const map = await MapService.find(req.params.id)
+    if (!map) res.status(404)
+    res.send(map)
   })
   
   app.post('/map', async (req, res) => {
@@ -135,15 +157,27 @@ app.get('/posts/all-list', async (req, res) => {
 
   //Location Endpoints
 
-  app.get('/location/all', async (req, res) => {
+  app.get('/location/all-list', async (req, res) => {
     const locations = await LocationService.findAll()
     res.render('locations', { locations })
   })
-  
+
+  app.get('/location/all', async (req, res) => {
+    const locations = await locationService.findAll()
+    res.send(locations)
+  })
+
   app.get('/location/:id', async (req, res) => {
     const location = await LocationService.find(req.params.id)
     res.render('data', { data: location })
   })
+
+  app.get('/location/:id/json', async (req, res) => {
+    const location = await LocationService.find(req.params.id)
+    if (!location) res.status(404)
+    res.send(location)
+  })
+  
   
   app.post('/location', async (req, res) => {
     const location = await LocationService.add(req.body)
@@ -153,5 +187,6 @@ app.get('/posts/all-list', async (req, res) => {
     const location = await LocationService.del(req.params.id)
     res.send(location)
   })
+  
 
   module.exports = app

@@ -5,8 +5,9 @@ import ContributorCard from '@/components/ContributorCard.vue'
 export default {
   name: 'contributors',
   created() {
-    this.fetchContributors(); //call on inside store - modules - user
+    this.fetchContributors();//call on inside store - modules - user
   },
+ 
   components: {
     ContributorCard
   },
@@ -24,11 +25,12 @@ export default {
 
 <template lang="pug">
 div
-  h1 Hello!
+  img(alt="Vue logo" src="../assets/logotip.jpg")
+  div 
   button(@click="addLikes") Like!
   div Likes: {{likes}}
   div(v-if="contributors.length") 
-    p Here are the contributors:
+    p Our contributors:
     div.contributors-list
       div.contributor(v-for="contributor in contributors")
         contributor-card(:data="contributor" key="contributors._id")
@@ -37,8 +39,31 @@ div
 <style>
 .contributors-list {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
+
+
 .contributor {
-  margin: 30px;
+  margin: 10px;
+  width: 28%;
+}
+
+
+@media all and (max-width: 990px) {
+.contributor {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+}
+
+
+@media all and (max-width: 650px) {
+.contributor {
+   margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+}
 }
 </style>
