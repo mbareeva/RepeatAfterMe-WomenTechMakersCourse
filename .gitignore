@@ -2,9 +2,14 @@
 node_modules
 /dist
 
+jspm_packages/
+
 # local env files
 .env.local
 .env.*.local
+
+# nyc test coverage
+.nyc_output 
 
 # Log files
 npm-debug.log*
